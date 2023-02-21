@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 8 feb 2023 19:51:55 by Hibernate Tools 4.3.6.Final -->
+<hibernate-mapping>
+    <class name="modelo.Jugador" table="jugador" catalog="nba" optimistic-lock="version">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="equipo" class="modelo.Equipo" fetch="select">
+            <column name="nombre_equipo" length="20" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="30" not-null="true" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="procedencia" length="20" not-null="true" />
+        </property>
+        <property name="altura" type="string">
+            <column name="altura" length="4" />
+        </property>
+        <property name="peso" type="java.lang.Integer">
+            <column name="peso" />
+        </property>
+        <property name="posicion" type="string">
+            <column name="posicion" length="5" />
+        </property>
+        <set name="estadisticas" table="estadistica" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="jugador" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Estadistica" />
+        </set>
+    </class>
+</hibernate-mapping>
